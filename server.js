@@ -2,13 +2,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const ShortUrl = require('./models/shortUrl');
 const app = express();
+require('dotenv').config();
 
 // Connect to MongoDB with proper options
-mongoose.connect('mongodb://localhost/urlShortener', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/urlShortener', {
     useNewUrlParser: true,
     useUnifiedTopology: true
-}).then(() => console.log("✅ Connected to MongoDB"))
-  .catch(err => console.error("❌ MongoDB Connection Error:", err));
+  })
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
