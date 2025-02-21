@@ -5,9 +5,10 @@ const app = express();
 require('dotenv').config();
 
 // Connect to MongoDB with proper options
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/urlShortener', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+mongoose.connect(process.env.MONGODB_URI, {
+    ssl: true,
+    sslValidate: true,
+    sslCA: `./rds-combined-ca-bundle.pem` // Only if needed for your Atlas config
   })
 
 app.set('view engine', 'ejs');
